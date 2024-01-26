@@ -168,7 +168,11 @@ class bstree {
         delete nextminimunnode;
       } else {
         nodetodelete->data = nextminimunnode->data;
-        nextminimunnode->parent->left = nullptr;
+        if (nextminimunnode->parent->left == nullptr)
+          nextminimunnode->parent->left = nullptr;
+        else {
+          nextminimunnode->parent->left = nextminimunnode->right;
+        }
         delete nextminimunnode;
       }
       // -- when the mode has one child
@@ -315,10 +319,10 @@ class bstree {
 
   Node* search(T data) { return search(data, root); }
 };
-/*
+
 int main() {
   bstree<int> intTree;
-  std::vector<int> intValues = {5, 3, 7, 1, 4, 6, 8, 10, 9, 11};
+  std::vector<int> intValues = {6, 2, 8, 1, 5, 3, 4};
 
   for (int value : intValues) {
     intTree.insert(value);
@@ -327,24 +331,15 @@ int main() {
   std::cout << "In order traversal printing for int: ";
   intTree.printInOrder();
 
-  intTree.remove(5);
+  intTree.remove(2);
 
   std::cout << "In order traversal printing for int after remove: ";
   intTree.printInOrder();
 
-  bstree<char> charTree;
-  std::vector<char> charValues = {'g', 'e', 'i', 'a', 'h', 'f', 'b'};
-
-  for (char value : charValues) {
-    charTree.insert(value);
-  }
-
-  // std::cout << "In order traversal printing for charl: ";
-  // charTree.printInOrder();
-
   return 0;
 }
-*/
+
+/*
 int main() {
   bstree<int> intTree;
   std::vector<int> intValues = {5, 3, 7, 1, 4, 6, 8};
@@ -414,3 +409,4 @@ int main() {
 
   return 0;
 }
+*/
