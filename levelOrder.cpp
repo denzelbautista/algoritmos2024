@@ -65,8 +65,8 @@ void test() {
   nodo_c->right = nodo_e;
 
   assert(Solution().levelOrder(nodo_a) == ans);
-  ans = {{1}};
-  nodo_a = new TreeNode(1);
+  ans = {{0}};
+  nodo_a = new TreeNode;
   assert(Solution().levelOrder(nodo_a) == ans);
 }
 
