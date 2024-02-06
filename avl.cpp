@@ -5,8 +5,8 @@
 #include <vector>
 
 template <typename T>
-class bstree {
- private:
+class avl {
+ protected:
   struct Node {
     T data;
     Node* left;
@@ -32,8 +32,27 @@ class bstree {
 
     if (data < node->data) {
       node->left = addNode(node->left, data, node);
-    } else {
+    } else if (data > node->data) {
       node->right = addNode(node->right, data, node);
+    } else {
+      // if the node has the same value as the one inserted, nothing changes
+      return node;
+    }
+
+    int balance = balanceFactor(node);
+
+    if (balance >= 2) {
+      if (balanceFactor(node->left) <= -1) {
+        node = simpleRotateL(node->left);
+      }
+      node = simpleRotateR(node);
+    }
+
+    if (balance <= -2) {
+      if (balanceFactor(node->right) >= 1) {
+        node = simpleRotateR(node->right);
+      }
+      node = simpleRotateL(node);
     }
 
     return node;
@@ -168,11 +187,7 @@ class bstree {
         delete nextminimunnode;
       } else {
         nodetodelete->data = nextminimunnode->data;
-        if (nextminimunnode->parent->left == nullptr)
-          nextminimunnode->parent->left = nullptr;
-        else {
-          nextminimunnode->parent->left = nextminimunnode->right;
-        }
+        nextminimunnode->parent->left = nullptr;
         delete nextminimunnode;
       }
       // -- when the mode has one child
@@ -201,31 +216,115 @@ class bstree {
       removeNode(node->right, data);
     } else {
       deleteNode(node);  // node found
+      return;
+    }
+
+    int balance = balanceFactor(node);
+
+    if (balance >= 2) {
+      if (balanceFactor(node->left) >= 0) {
+        node = simpleRotateR(node);
+      }
+
+      if (balanceFactor(node->left) < 0) {
+        node = doubleRotateLR(node);
+      }
+    }
+
+    if (balance <= -2) {
+      if (balanceFactor(node->right) <= 0) {
+        node = simpleRotateL(node);
+      }
+
+      if (balanceFactor(node->right) > 0) {
+        node = doubleRotateRL(node);
+      }
     }
   }
 
+  int balanceFactor(Node* root) {
+    Node* temp = root;
+    int left = 0, right = 0;
+
+    while (temp->left != nullptr) {
+      left++;
+      temp = temp->left;
+    }
+
+    temp = root;
+
+    while (temp->right != nullptr) {
+      right++;
+      temp = temp->right;
+    }
+
+    return left - right;
+  }
+
+  Node* simpleRotateL(Node* node) {
+    Node* temp = node->right;
+    node->right = temp->left;
+    temp->parent = node->parent;
+    temp->left = node;
+    node->parent = temp;
+    node = temp;
+    return node;
+  }
+
+  Node* simpleRotateR(Node* node) {
+    Node* temp = node->left;
+    node->left = temp->right;
+    temp->parent = node->parent;
+    temp->right = node;
+    node->parent = temp;
+    node = temp;
+    return node;
+  }
+
+  Node* doubleRotateLR(Node* root) {
+    simpleRotateL(root->left);
+    simpleRotateR(root);
+    return root;
+  }
+
+  Node* doubleRotateRL(Node* root) {
+    simpleRotateR(root->right);
+    simpleRotateL(root);
+    return root;
+  }
+
  public:
-  bstree() : root(nullptr) {}
+  avl() : root(nullptr) {}
 
-  // Insert del bst
-  void insert(T data) { root = addNode(root, data, nullptr); }
+  // Insert del avl
+  void insert(T data) {
+    root = addNode(root, data, nullptr);
+    while (root->parent != nullptr) {
+      root = root->parent;
+    }
+  }
 
-  // Remove del bst
-  void remove(T data) { removeNode(root, data); }
+  // Remove del avl
+  void remove(T data) {
+    removeNode(root, data);
+    while (root->parent != nullptr) {
+      root = root->parent;
+    }
+  }
 
-  // Print in order del bst
+  // Print in order del avl
   void printInOrder() {
     printInOrder(root);
     std::cout << std::endl;
   }
 
-  // Print pre order del bst
+  // Print pre order del avl
   void preOrder() {
     preOrder(root);
     std::cout << std::endl;
   }
 
-  // Print pos order del bst
+  // Print pos order del avl
   void posOrder() {
     posOrder(root);
     std::cout << std::endl;
@@ -321,32 +420,14 @@ class bstree {
 };
 
 int main() {
-  bstree<int> intTree;
-  std::vector<int> intValues = {6, 2, 8, 1, 5, 3, 4};
-
-  for (int value : intValues) {
-    intTree.insert(value);
-  }
-
-  std::cout << "In order traversal printing for int: ";
-  intTree.printInOrder();
-
-  intTree.remove(2);
-
-  std::cout << "In order traversal printing for int after remove: ";
-  intTree.printInOrder();
-
-  return 0;
-}
-
-/*
-int main() {
-  bstree<int> intTree;
+  avl<int> intTree;
   std::vector<int> intValues = {5, 3, 7, 1, 4, 6, 8};
 
   for (int value : intValues) {
     intTree.insert(value);
   }
+
+  intTree.remove(5);
 
   std::cout << "In order traversal printing for int: ";
   intTree.printInOrder();
@@ -397,8 +478,8 @@ int main() {
     std::cerr << e.what() << std::endl;
   }
 
-  bstree<char> charTree;
-  std::vector<char> charValues = {'g', 'e', 'i', 'a', 'h', 'f', 'b'};
+  avl<char> charTree;
+  std::vector<char> charValues = {'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a'};
 
   for (char value : charValues) {
     charTree.insert(value);
@@ -407,6 +488,10 @@ int main() {
   std::cout << "In order traversal printing for charl: ";
   charTree.printInOrder();
 
+  charTree.remove('i');
+  charTree.remove('h');
+
+  charTree.printInOrder();
+
   return 0;
 }
-*/
