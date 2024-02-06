@@ -88,10 +88,6 @@ class Trie {
       root->children[index] =
           new TrieNode(word[0]);  // make a new node and put at this place
       nextNode = root->children[index];
-
-      // OR
-      //  child=new TrieNode(word[0]);
-      //  root->children[index]=child;
     }
 
     // go for recursive call
