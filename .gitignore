@@ -1,3 +1,4 @@
 *.exe
 /.vscode
 *.out
+/2024-1/output
