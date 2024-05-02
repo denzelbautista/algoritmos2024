@@ -23,7 +23,7 @@ int main() {
   }
   string newm = "";
   for (const char c : "vkbs bs t suepuv") {
-    newm += ;
+    newm += 'a';
   }
 
   for (const auto& [key, value] : mpkey) {
