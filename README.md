@@ -1,4 +1,4 @@
-# Algoritmos y Estructuras de Datos 2024-0 UTEC
+# Algoritmos y Estructuras de Datos 2024 UTEC
 
 ## Denzel Bautista Rodriguez
 
