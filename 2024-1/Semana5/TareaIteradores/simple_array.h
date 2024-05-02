@@ -24,24 +24,6 @@ class ArrayIterator {
   }
   bool operator!=(const ArrayIterator& otro) { return current != otro.current; }
   T operator*() { return array[current]; }
-
-  /*
-   ArrayIterator() {}
-   ArrayIterator(int c, T* a) {
-     this->current = c;
-     this->array = a;
-   }
-   ArrayIterator& operator++() {
-     this->current++;
-     return *this;
-   }
-   ArrayIterator& operator--() {
-     this->current--;
-     return this;
-   }
-   bool operator!=(ArrayIterator otro) { if }
-   T operator*() { return array[current]; }
-   */
 };
 
 template <class T>
@@ -54,7 +36,7 @@ class Array {
  public:
   typedef ArrayIterator<T> iterator;
   iterator begin() { return iterator(0, this->array); }
-  iterator end() { return iterator(nsize + 1, this->array); }
+  iterator end() { return iterator(nsize - 1, this->array); }
   Array(int _capacity = 10);
   Array(T* array, int n);
   Array(std::initializer_list<int> list);
