@@ -1,15 +1,23 @@
 #include <iostream>
+#include <string>
 #include <vector>
 using namespace std;
 
 int main() {
-  vector<int> v1 = {1, 2, 3, 4};
-  v1.push_back(2);
-
-  cout << "size: " << v1.size() << endl;
-  for (int i = 0; i < v1.size(); i++) {
-    cout << v1[i] << endl;
+  string s1 = "";
+  string s2 = "Alexzandra";
+  string s3;
+  int s = s1.size() > s2.size() ? s1.size() : s2.size();
+  for (int i = 0; i < s; i++) {
+    char c1 = s1[i];
+    if (c1 == '\0') {
+      c1 = '';
+    }
+    s3 += s1[i] + s2[i];
+    // cout << s1[i] << " - " << s2[i] << endl;
   }
-
+  cout << s << endl;
   return 0;
 }
+
+// ytph teo jansen y la bestia de la playa
