@@ -24,9 +24,10 @@ int main() {
   string newm = "";
   for (const char c : "vkbs bs t suepuv") {
     newm += 'a';
+    int a = 0;
   }
 
-  for (const auto& [key, value] : mpkey) {
+  for (const auto &[key, value] : mpkey) {
     // cout << key << " : " << value << "\n";
   }
 
