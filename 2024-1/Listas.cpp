@@ -21,7 +21,8 @@ class CircularList {
       next->next;
       prev->prev;
     }
-  } Node* head;  // Sentinel node
+  };
+  Node* head;  // Sentinel node
 
  public:
   CircularList() {

@@ -1,5 +1,7 @@
 #include <iostream>
 using namespace std;
+#include <bits/stdc++.h>
+
 #include <array>
 #include <set>
 #include <vector>
@@ -57,6 +59,15 @@ int main() {
   cout << "Iterando sobre los elementos del set:" << endl;
   for (set<int>::iterator it = mySet.begin(); it != mySet.end(); ++it) {
     cout << *it << " ";
+  }
+  cout << endl;
+
+  vector<int> va = {8, 2, 0, 9, 5, 3, 7, 1};
+
+  sort(va.begin(), va.end(), { return a > b; });
+
+  for (const auto& e : va) {
+    cout << e << " ";
   }
   cout << endl;
 

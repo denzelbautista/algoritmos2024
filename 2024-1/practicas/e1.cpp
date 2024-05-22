@@ -30,21 +30,21 @@ void hascicle(ListNode* head) {
 }
 
 int main() {
-  /*
-ListNode* l2 = new ListNode(2);
-ListNode* l4 = new ListNode(4);
-ListNode* l0 = new ListNode(0);
-ListNode* l3 = new ListNode(3);
-l3->nextnode(l2);
-l2->nextnode(l0);
-l0->nextnode(l4);
-l4->nextnode(l2);
-*/
-  ListNode* l1 = new ListNode(1);
   ListNode* l2 = new ListNode(2);
-  l1->nextnode(l2);
-  l2->nextnode(l1);
-  // l3 es el head;
-  hascicle(l1);
+  ListNode* l4 = new ListNode(4);
+  ListNode* l0 = new ListNode(0);
+  ListNode* l3 = new ListNode(3);
+  l3->nextnode(l2);
+  l2->nextnode(l0);
+  l0->nextnode(l4);
+  l4->nextnode(l2);
+  /*
+    ListNode* l1 = new ListNode(1);
+    ListNode* l2 = new ListNode(2);
+    l1->nextnode(l2);
+    l2->nextnode(l1);
+    // l3 es el head;
+    */
+  hascicle(l3);
   return 0;
 }
