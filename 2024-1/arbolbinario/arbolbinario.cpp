@@ -59,7 +59,7 @@ class ArbolBinario {
   ArbolBinario(Nodo* root = nullptr) : root(root) {}
 
   void insertar(T value) { root = insertarnodo(value, root, nullptr); }
-  bool buscar(T value) { return buscarnodo(value, root) }
+  bool buscar(T value) { return buscarnodo(value, root); }
 };
 
 int main() { return 0; }
